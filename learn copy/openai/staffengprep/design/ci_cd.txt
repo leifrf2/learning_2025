@@ -1,0 +1,3 @@
+Design a distributed CI/CD workflow system similar to GitHub Actions that automatically triggers and manages predefined workflows in response to repository events. The system should handle the complete lifecycle from event detection through workflow execution to status reporting.
+
+For example: A Git commit event will trigger some pre-defined workflows. The user triggers a create workflow request through gitpush. The config of this workflow is in the github repository. The id of the github repository can be obtained by analyzing gitpush through the internal api service. Then the create workflow job will be scheduled.

@@ -1,0 +1,9 @@
+Design a collaborative music playlist that can be shared among multiple clients.
+Each client can update the playlist, subscribe to changes and use the playlist to list and listen to individual songs.
+
+How to ensure a good user experience while ensuring performance?
+For example: If the customer changes the order of music (user changes music 1 to music 2),
+how should the update event be designed?
+If a lock is to be added, how can it be added with the least impact on user experience?
+If the user changes the playlist on the client and the server sends the update back, 
+what should the client do to have a better user experience?

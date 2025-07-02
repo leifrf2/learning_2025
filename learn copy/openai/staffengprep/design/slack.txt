@@ -1,0 +1,3 @@
+Implement a Slack-like chat system which supports sending messages to a group of chats or to an individual user. Should support use cases to create a new group chat, add users to a group chat, send notifications to a group chat or an individual user. Add support for rich media (image etc) in a chat message. As a follow up, how to implement deletion of a message by user.
+
+

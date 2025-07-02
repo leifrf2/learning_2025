@@ -1,0 +1,29 @@
+1. Listen
+>> interviewers tend not to tell you information you don't need to know
+"Given two arrays that are sorted and distinct, fund the number of elements in common"
+>> if your solution doesn't reference the hints, it's probably missing something
+
+2. Draw an example
+>> do larger examples, with many elements, variety of values, etc
+>> don't overfit with similar examples
+
+3. Brute Force
+>> "what's a stupid way of doing this"
+>> find space & time complexity of the BFI
+
+4. Optimizing
+>> find the short comings in 3. and improve on it
+
+5. Walk through algorithm before you start coding
+>> have a clear map
+
+6. Code
+>> why doesn't the interviewer typically have you run the code?
+>> 1. because they want to hear your thought process
+>> 2. because they don't want you to get bogged down in syntactic details
+
+7. Verification
+>> walk through the code manually, not by hitting run
+>> spend time to make sure your time is as bug-free as possible (think off-by-ones)
+>> fix your code up to look as profesional as possible
+

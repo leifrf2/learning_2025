@@ -1,0 +1,3 @@
+There are registered places of interest with a particular location (longitude + latitude) and place type (restaurant, hotel, park etc). It is required to support users running query to find N places nearby a particular location and specific place type. Should be able to support low latency on search queries at a very high scale (think 100Ms places across the world).
+
+

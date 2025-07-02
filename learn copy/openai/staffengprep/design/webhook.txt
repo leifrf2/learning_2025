@@ -1,0 +1,3 @@
+The objective is to design a Webhook service which allows users to register their callback address and an eventId. Whenever eventId is triggered, the system should call the registered callback address with a specific payload. It is safe to assume that each eventId → callback address is unique and one eventId will trigger only one callback address. Assume a highly scalable webhook delivery system which can handle up to 1B events per day
+
+

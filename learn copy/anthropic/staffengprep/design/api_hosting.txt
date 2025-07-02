@@ -1,0 +1,5 @@
+You are given a cluster of GPU servers that provide an inference API. The API accepts a list of strings as input and returns a corresponding list of output strings. The inference latency is constant for input list sizes ranging from 1 to 100, meaning that batching requests up to a size of 100 does not increase response time.
+
+Your task is to design a system for ChatGPT that efficiently utilizes these GPU servers by aggregating requests while ensuring low latency and optimal throughput.
+
+The approach should ensure a balance between low-latency responses for users and efficient GPU utilization by leveraging request aggregation effectively.

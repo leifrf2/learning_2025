@@ -1,0 +1,16 @@
+Process stock trading requests sent by customers.
+The system needs to connect to the API provided by the broker to 
+buy or sell a certain number of stocks of a company before the deadline.
+
+If the transaction is not successful after the deadline, the transaction needs to be canceled. 
+(We don’t need to worry about whether the transaction is successful or not.
+Calling the broker interface will tell us the status.)
+
+For example, the client can send the following request:
+
+- BUY BABA 30 “2023-11-01 15:00:00”
+- SELL AMZN 10 “2023-11-01 12:00:00”
+- The broker provides 3 interfaces:
+- A GET interface for obtaining the order transaction status
+- A POST interface for creating a stock ‍‌‌‌‌‍‍‌‌‌‌‍‌‌‌‌‌‍‌‌‌‌‍‍ trading order
+- A DELETE interface for canceling a transaction

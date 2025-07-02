@@ -1,0 +1,128 @@
+# https://www.hackerrank.com/test/45h9in69pbh/questions/eoj8trihaf
+
+
+"""
+Okay, let's think a bit
+
+we're matching buy and sell orders
+we essentially maintain a stack of buys and a stack of sells
+ordered by amount, then by submit time
+
+when a corresponding order comes in, it executes immediately
+against what's available,
+then puts any remaining on the appropriate stack
+
+for cancels, we need to remove the appropriate elements
+from the appropriate stacks
+
+so this could be done with heaps
+we're only trading one symbol
+
+what's an alternative to heaps here?
+using sortedlists
+that's better if we know the next element is always going at the end
+that is not the case here, because they're being sorted by price
+so insert would be log(n) w/ sorted list
+but dequeue would be O(1)
+
+***
+    cancel needs to scan MULTIPLE orders
+    so it's not just lookup
+    this makes cancel lookaside more attractive
+
+
+sortedlist/btree:
+    insert = logn
+    pop = 1
+    delete = logn
+    
+heap:
+    insert = logn (worst case), 1 on average case
+    pop = logn (reheapify)
+    delete = n
+    delete (with cancel lookaside) = remove = logn
+
+rather than cancelling orders in the heap
+could maintain a separate set of cancelled orders
+and if the element on the heap comes up but matches a cancel
+then go to the next one
+so delete is just a set lookup and reheapiy --> logn
+
+let's think more about the cancel_order operation.
+cancel_order matters for price AND time
+so if we maintain a dict of client_id
+we need to check:
+    1. is the cancel order still valid (time)
+    2. if it is valid, is the price more than that of a given order?
+
+how could we coalesce these?
+    1. if a new cancel order comes in at a higher price, then the others are irrelevant
+    2. only the highest price cancel order matters
+    3. it is possible to have a higher price cancel order at lower timestamp, and a lower price cancel at higher
+        * if there were a lower price cancel order at lower timestamp, we'd replace it with the higher price cancel
+    
+***
+    a cancel order is specific to a client_id
+    so what if we tracked all the active orders for a client_id?
+    nested dict of client_id, price -> orders
+    so it's constant lookup of everything we need to delete
+        when we get a matching cancel order
+        add them to the dirty_bit set
+        and delete from this tracking dict
+        on heap pop, check it for the dirty_bit set
+
+    can move all the dirty_bit records into a set that we check on pop from a heap
+
+    
+    okay, doing it this way means that on a CANCEL order we need to:
+    1. dict lookups (constant)
+    2. add N elements (that we already need to cancel) to a dirty_bit set
+    3. delete from dict (constant)
+
+    on BUY or SELL order we need to:
+    1. lookup in set (constant)
+    2. delete from set (constant)
+    3. get next element (heap) *** we need to do this anyway for when we need more data
+
+    what's the memory tradeoff?
+    1. we're doubling memory footprint for all orders, to track for canceling
+
+    but we have a pointer to all the things, so why not just remove them?
+    >> if we're doing heaps, it's going to be n time to remove from the heap
+
+    instead of maintaining a separate set, we can just add an is_cancelled field to the order
+    and update there. this still adds a bit for every record, but we don't need to maintain
+    a set duplicating everything this way. only the dict (which still isn't great)
+
+    also, there is no "uncancel" logic.
+
+***
+okay, we have a decent way of processing cancels
+but how can we do this such that we remove them from the order list as soon as the cancel comes in?
+    *** if we were to do sortedlist, upon deleting an element, there's just a dummy spot    
+
+
+Okay, Option 1:
+
+Maintain a heap for buy and a heap for sell.
+They are sorted first by price (sell is low -> high, buy is high -> low) ** TODO double check sort
+Then sorted by time, earlier = better.
+
+Maintain a dictionary of [client_id, last_cancel_order]
+
+When a buy order comes in, pop elements off the Sell heap until:
+    1. the buy order quantity reaches 0
+    2. there are no elements left in the Sell heap
+    3. the top element of the Sell heap is higher price than the Buy order
+Next
+    1. if the buy order has any remaining, insert it into the buy heap
+    2. if the buy order is exhausted, nothing to do
+
+When a sell order comes in, do the same as above but with inverse heaps.
+
+When a cancel order comes in:
+    1. insert it into the cancel_order_dict for the appropriate client_id
+        
+
+
+"""

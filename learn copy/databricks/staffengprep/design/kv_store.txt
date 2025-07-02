@@ -1,0 +1,6 @@
+Design, durable KV.
+There were generally two key points, one is the fine-grained lock in the memory map,
+and the other is what is stored in WAL and how to recover. 
+
+Expect a deep-dive into how replication works, consensus protocols, how to ensure linearizability, 
+strong consistency etc. Also how Write-ahead-logs work. 

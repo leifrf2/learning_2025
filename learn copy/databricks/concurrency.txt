@@ -1,0 +1,28 @@
+# turnstile, pg 29
+
+# leader follower pg 53
+
+# no starve writer pg 75
+
+
+
+### Concepts prep
+
+# Barrier
+
+Generalize a mutex to N threads
+block a critical section until all threads have arrived
+
+mutex.wait()
+    count += 1
+mutex.signal()
+
+if count == n:
+    barrier.signal()
+
+barrier.wait()
+
+critical section
+
+
+# what's wrong with this?

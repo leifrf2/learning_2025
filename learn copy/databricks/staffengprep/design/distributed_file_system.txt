@@ -1,0 +1,15 @@
+The ask is to design a distributed file system (much like GFS, Dropbox) to store customer files in the cloud.
+Expected to talk in good technical depth about how files are stored with 
+high reliability and durability, metadata layer, strong consistency etc.
+A lot of follow up questions:  for example, there are millions of files in a file directory, /a/b/1 … /a/b/100000000.
+
+
+- System that can store files, support uploadfile(), viewfile(), CRUD directory and list directory.
+- Metadata and file content are separated
+- Client is used to divide large files into chunks and process small chunks one by one
+- Recursive create and delete, for example, a/b/c.txt,
+    first create a, then create a/b and then a/b/c.text, 
+    and update redis at the same time. Delete direcotry.
+    Similarly, find all sub dir and files under this direcotry, lock table, remove, release table
+- Async remove file handle in chunk service Because file reorg is very time-consuming and laborious, '
+    use message queue to handle it. When metadata service is updated, immediately return remove success
